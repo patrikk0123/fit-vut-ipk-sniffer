@@ -35,14 +35,13 @@ void parse_frame(u_char *user, const struct pcap_pkthdr *header,
 
 void print_ether_info(const u_char *frame, int frame_len)
 {
-  std::cout << "L2 protocol: ETHERNET\n";
+  std::cout << "L2 protocol:     ETHERNET\n";
   auto ether = (struct ether_header*)frame;
-
-  std::cout << "src MAC: ";
+  std::cout << "src MAC:         ";
   print_mac_addr(ether->ether_shost);
-  std::cout << "dst MAC: ";
+  std::cout << "dst MAC:         ";
   print_mac_addr(ether->ether_dhost);
-  std::cout << "frame length: " << frame_len << "\n";
+  std::cout << "frame length:    " << frame_len << "\n";
 
   auto ether_type = ntohs(ether->ether_type);
   if(ether_type == ETHERTYPE_IP) {
@@ -58,26 +57,25 @@ void print_ether_info(const u_char *frame, int frame_len)
 
 void print_arp_info(const u_char *frame)
 {
-  std::cout << "L2.5 protocol: ARP\n";
+  std::cout << "L2.5 protocol:   ARP\n";
   auto arp = (struct arpheader*)(frame + sizeof(struct ether_header));
-  
-  std::cout << "src MAC: ";
+  std::cout << "src MAC:         ";
   print_mac_addr(arp->sha);
-  std::cout << "dst MAC: ";
+  std::cout << "dst MAC:         ";
   print_mac_addr(arp->tha);
-  std::cout << "src IP: " << inet_ntoa(*((in_addr*)(&arp->spa))) << "\n";
-  std::cout << "dst IP: " << inet_ntoa(*((in_addr*)(&arp->tpa))) << "\n";
-  std::cout << "ARP operation: " << ntohs(arp->operation) << "\n";
+  std::cout << "src IP:          " << inet_ntoa(*((in_addr*)(&arp->spa))) << "\n";
+  std::cout << "dst IP:          " << inet_ntoa(*((in_addr*)(&arp->tpa))) << "\n";
+  std::cout << "ARP operation:   " << ntohs(arp->operation) << "\n";
 }
 
 void print_ip4_info(const u_char *frame)
 {
-  std::cout << "L3 protocol: IPv4\n";
+  std::cout << "L3 protocol:     IPv4\n";
   auto ip4 = (struct ip*)(frame + sizeof(struct ether_header));
 
-  std::cout << "src IP: " << inet_ntoa(ip4->ip_src) << "\n";
-  std::cout << "dst IP: " << inet_ntoa(ip4->ip_dst) << "\n";
-  std::cout << "time to live: " << unsigned(ip4->ip_ttl) << "\n";
+  std::cout << "src IP:          " << inet_ntoa(ip4->ip_src) << "\n";
+  std::cout << "dst IP:          " << inet_ntoa(ip4->ip_dst) << "\n";
+  std::cout << "time to live:    " << unsigned(ip4->ip_ttl) << "\n";
 
   int ip_header_len = ip4->ip_hl * 4;
   if(ip4->ip_p == IPPROTO_ICMP) {
@@ -96,14 +94,14 @@ char ip6_addr[INET6_ADDRSTRLEN];
 
 void print_ip6_info(const u_char *frame)
 {
-  std::cout << "L3 protocol: IPv6\n";
+  std::cout << "L3 protocol:     IPv6\n";
   auto ip6 = (struct ip6_hdr*)(frame + sizeof(struct ether_header));
 
   inet_ntop(AF_INET6, &(ip6->ip6_src), ip6_addr, INET6_ADDRSTRLEN);
-  std::cout << "src IP: " << ip6_addr << "\n";
+  std::cout << "src IP:          " << ip6_addr << "\n";
   inet_ntop(AF_INET6, &(ip6->ip6_dst), ip6_addr, INET6_ADDRSTRLEN);
-  std::cout << "dst IP: " << ip6_addr << "\n";
-  std::cout << "hop limit: " << unsigned(ip6->ip6_hlim) << "\n";
+  std::cout << "dst IP:          " << ip6_addr << "\n";
+  std::cout << "hop limit:       " << unsigned(ip6->ip6_hlim) << "\n";
 
   int ip_header_len = sizeof(struct ip6_hdr);
   if(ip6->ip6_nxt == IPPROTO_ICMPV6) {
@@ -119,31 +117,31 @@ void print_ip6_info(const u_char *frame)
 
 void print_icmp_info(const u_char *frame, int ip_header_len)
 {
-  std::cout << "L3 protocol: ICMP\n";
+  std::cout << "L3 protocol:     ICMP\n";
   auto icmp = (struct icmphdr*)(frame + sizeof(struct ether_header) +
                                 ip_header_len);
 
-  std::cout << "ICMP type: " << unsigned(icmp->type) << "\n";
+  std::cout << "ICMP type:       " << unsigned(icmp->type) << "\n";
 }
 
 void print_tcp_info(const u_char *frame, int ip_header_len)
 {
-  std::cout << "L4 protocol: TCP\n";
+  std::cout << "L4 protocol:     TCP\n";
   auto tcp = (struct tcphdr*)(frame + sizeof(struct ether_header) +
                               ip_header_len);
 
-  std::cout << "src port: " << ntohs(tcp->source) << "\n";
-  std::cout << "dst port: " << ntohs(tcp->dest) << "\n";
+  std::cout << "src port:        " << ntohs(tcp->source) << "\n";
+  std::cout << "dst port:        " << ntohs(tcp->dest) << "\n";
 }
 
 void print_udp_info(const u_char *frame, int ip_header_len)
 {
-  std::cout << "L4 protocol: UDP\n";
+  std::cout << "L4 protocol:     UDP\n";
   auto udp = (struct udphdr*)(frame + sizeof(struct ether_header) +
                               ip_header_len);
 
-  std::cout << "src port: " << ntohs(udp->source) << "\n";
-  std::cout << "dst port: " << ntohs(udp->dest) << "\n";
+  std::cout << "src port:        " << ntohs(udp->source) << "\n";
+  std::cout << "dst port:        " << ntohs(udp->dest) << "\n";
 }
 
 void print_mac_addr(u_char mac_arr[6])
@@ -210,6 +208,6 @@ void print_timestamp(const struct pcap_pkthdr *header)
   char time_zone[10];
   strftime(time_zone, 10, "%z", time_data);
   auto mili_secs = header->ts.tv_usec / 1000;
-
-  printf("timestamp: %s.%03lu%.3s:%.2s\n", datetime, mili_secs, time_zone, time_zone + 3);
+  printf("timestamp:       %s.%03lu%.3s:%.2s\n", datetime, mili_secs,
+                                                 time_zone, time_zone + 3);
 }
