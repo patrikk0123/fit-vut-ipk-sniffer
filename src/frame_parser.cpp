@@ -59,12 +59,12 @@ void print_arp_info(const u_char *frame)
 {
   std::cout << "L2.5 protocol:   ARP\n";
   auto arp = (struct arpheader*)(frame + sizeof(struct ether_header));
-  std::cout << "src MAC:         ";
+  std::cout << "sha MAC:         ";
   print_mac_addr(arp->sha);
-  std::cout << "dst MAC:         ";
+  std::cout << "tha MAC:         ";
   print_mac_addr(arp->tha);
-  std::cout << "src IP:          " << inet_ntoa(*((in_addr*)(&arp->spa))) << "\n";
-  std::cout << "dst IP:          " << inet_ntoa(*((in_addr*)(&arp->tpa))) << "\n";
+  std::cout << "spa IP:          " << inet_ntoa(*((in_addr*)(&arp->spa))) << "\n";
+  std::cout << "tpa IP:          " << inet_ntoa(*((in_addr*)(&arp->tpa))) << "\n";
   std::cout << "ARP operation:   " << ntohs(arp->operation) << "\n";
 }
 
