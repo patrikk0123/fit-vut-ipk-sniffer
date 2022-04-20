@@ -68,17 +68,15 @@ void set_filter(pcap_t* pcap_handle, Arguments args)
 
 std::string filter_string(Arguments args)
 {
-  // len < 0 => never true, but makes creating string simpler
-  std::string filter = "len < 0 ";
+  std::string filter = "";
   if(args.all) {
-    filter += "or arp or icmp or icmp6 or tcp ";
     if(args.port != -1)
-      filter += "port " + std::to_string(args.port) + " ";
-    filter += "or udp ";
-    if(args.port != -1)
-      filter += "port " + std::to_string(args.port) + " ";
+      filter = "port " + std::to_string(args.port);
   }
   else {
+    // len < 0 => never true, but makes creating string simpler
+    filter = "len < 0 ";
+
     if(args.arp) {
       filter += "or arp ";
     }
@@ -100,6 +98,6 @@ std::string filter_string(Arguments args)
                 " or tcp port " + std::to_string(args.port);
     }
   }
- 
+
   return filter;
 }

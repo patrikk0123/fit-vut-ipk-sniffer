@@ -15,7 +15,8 @@
 
 // not properly included in system`s header files
 // inspiration from:
-// https://static.javatpoint.com/tutorial/computer-network/images/arp-packet-format.png
+// https://en.wikipedia.org/wiki/Address_Resolution_Protocol
+// https://sites.uclouvain.be/SystInfo/usr/include/net/if_arp.h.html
 struct arpheader { 
     u_int16_t htype;
     u_int16_t ptype;
