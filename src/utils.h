@@ -70,6 +70,11 @@ char* get_arg_str(int pos, int argc, char* argv[]);
 int get_arg_num(int pos, int argc, char* argv[]);
 
 /**
+ * Print help message (how to use program) to the STDOUT.
+ */
+void print_help();
+
+/**
  * Print error message to STDERR
  * and exit with error code.
  * @param error_code Error code to exit with.

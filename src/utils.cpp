@@ -57,7 +57,12 @@ Arguments get_args(int argc, char*argv[])
       }
       i++;
     }
+    else if(!strcmp(argv[i], "-h") || !strcmp(argv[i], "--help")) {
+      print_help();
+      exit(0);
+    }
     else {
+      print_help();
       error_exit(INVARG_ERR,
                  std::string("unknown argument: ") + argv[i]);
     }
@@ -96,6 +101,19 @@ int get_arg_num(int pos, int argc, char* argv[])
   }
 
   return 0;
+}
+
+void print_help() {
+  std::cout << "Usage: ./ipk-sniffer [OPTIONS]\n";
+  std::cout << "  -h|--help                   print help and exit\n";
+  std::cout << "  -i|--interface [INTERFACE]  interface to sniff on\n";
+  std::cout << "  -p [PORT]                   port to sniff on\n";
+  std::cout << "  -t|--tcp                    sniff TCP\n";
+  std::cout << "  -u|--udp                    sniff UDP\n";
+  std::cout << "  --icmp                      sniff ICMP\n";
+  std::cout << "  --arp                       sniff ARP\n";
+  std::cout << "  -n [NUM]                    number of packets to print\n\n";
+  std::cout << "If no protocol is specified, sniffs all protocols.\n";
 }
 
 void error_exit(int error_code, std::string message)
