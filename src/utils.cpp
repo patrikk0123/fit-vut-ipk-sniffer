@@ -107,7 +107,7 @@ void print_help() {
   std::cout << "Usage: ./ipk-sniffer [OPTIONS]\n";
   std::cout << "  -h|--help                   print help and exit\n";
   std::cout << "  -i|--interface [INTERFACE]  interface to sniff on\n";
-  std::cout << "  -p [PORT]                   port to sniff on\n";
+  std::cout << "  -p [PORT]                   sniff this port\n";
   std::cout << "  -t|--tcp                    sniff TCP\n";
   std::cout << "  -u|--udp                    sniff UDP\n";
   std::cout << "  --icmp                      sniff ICMP\n";
