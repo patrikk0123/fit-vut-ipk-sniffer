@@ -4,6 +4,22 @@ Packet sniffer program. Scans interface in promiscuous mode and displays info ab
 
 Supported protocols are ETHERNET, ARP, IPv4, IPv6, TCP, UDP.
 
+## Project files
+
+Project consists of following files and directories:
+
+* ./main.cpp
+* ./Makefile
+* ./README.md
+* ./manual.pdf
+* ./src/
+* ./src/utils.h
+* ./src/utils.cpp
+* ./src/sniffer.h
+* ./src/sniffer.cpp
+* ./src/frame_parser.h
+* ./src/frame_parser.cpp
+
 ## Prerequisites
 
 Program is made for UNIX operating system. C++17 (or later) is used for the implementation. Make program is required if you will to use makefile.
@@ -80,7 +96,7 @@ With -n parameter equal to 0, program sniffs packets until program is ended manu
 
 **End program manually**
 
-Press CTRL+Z.
+Press ctrl+C.
 
 ## Author
 
