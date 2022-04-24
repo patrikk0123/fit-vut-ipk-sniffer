@@ -29,7 +29,7 @@ void print_interfaces()
 }
 
 // packet buffer timeout in ms
-constexpr int buffer_timeout = 1000;
+constexpr int buffer_timeout = 200;
 
 void sniff(Arguments args)
 {
